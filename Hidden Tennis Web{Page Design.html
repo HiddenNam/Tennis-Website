@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hidden's Tennis Domain — A responsive tennis-themed webpage by Adekanye Sulaiman Adedolapo, front-end developer and tennis enthusiast." />
+  <title>Hidden's Tennis Domain</title>
+  <style>
+    :root {
+      --primary: #003366;
+      --accent: #00cc66;
+      --light: #f0faff;
+      --dark-bg: #121212;
+      --dark-text: #e0e0e0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      background-color: var(--light);
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+
+    section {
+      padding: 60px 20px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h1, h2, h3 {
+      color: var(--primary);
+    }
+
+    nav {
+      background-color: aliceblue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 12px;
+      font-size: 18px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+
+    nav.scrolled {
+      background-color: #e7f3ff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    nav a {
+      color: var(--primary);
+      background-color: white;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: var(--accent);
+      color: white;
+    }
+
+    #darkToggle {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #darkToggle:hover {
+      background-color: var(--accent);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 2.2rem;
+    }
+
+    img.main-image {
+      display: block;
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+    }
+
+    section img.profile {
+      width: 180px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    p {
+      line-height: 1.6;
+      max-width: 800px;
+      margin: auto;
+      text-align: justify;
+    }
+
+    .gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    figure {
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    figure img {
+      border-radius: 8px;
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    figure img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    figcaption {
+      margin-top: 8px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    #contact {
+      background-color: aliceblue;
+      border-top: 2px solid var(--primary);
+    }
+
+    #contact a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #contact a:hover {
+      color: var(--accent);
+    }
+
+    footer {
+      background-color: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    footer .social-icons a {
+      margin: 0 10px;
+      color: white;
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+
+    footer .social-icons a:hover {
+      color: var(--accent);
+    }
+
+    .tennis-ball {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: url('https://i.imgur.com/gt7wxii.png') no-repeat center/contain;
+      animation: bounce 1.2s infinite ease-in-out;
+      z-index: 2000;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-25px); }
+    }
+
+    body.dark-mode {
+      background-color: var(--dark-bg);
+      color: var(--dark-text);
+    }
+
+    body.dark-mode nav {
+      background-color: #1e1e1e;
+    }
+
+    body.dark-mode nav a {
+      background-color: #2a2a2a;
+      color: var(--dark-text);
+    }
+
+    body.dark-mode h1, body.dark-mode h2, body.dark-mode figcaption {
+      color: var(--accent);
+    }
+
+    body.dark-mode #contact {
+      background-color: #1e1e1e;
+    }
+
+    body.dark-mode .tennis-ball {
+      animation-play-state: paused;
+      filter: grayscale(100%) brightness(0.7);
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+      figure img {
+        width: 90%;
+        height: auto;
+      }
+      p {
+        padding: 0 10px;
+      }
+      section {
+        padding: 40px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav id="navbar">
+    <a href="#profile">Profile</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <button id="darkToggle">🌙 Toggle Dark Mode</button>
+  </nav>
+
+  <h1>Hidden's Tennis Domain</h1>
+  <img class="main-image" src="https://i.imgur.com/tW7wZsJ.png" alt="Tennis Court">
+
+  <section id="profile">
+    <img class="profile" src="https://i.imgur.com/8qSVJSD.jpeg" alt="Adekanye Sulaiman Adedolapo">
+    <h2>Profile</h2>
+    <p>I'm <b>Adekanye Sulaiman Adedolapo</b>, a front-end developer and tennis enthusiast who loves building clean, responsive designs. I'm passionate about bringing the <i>sport of love</i> to the world through creativity and technology.</p>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <p>My journey began with a love for problem-solving and the rhythm of the tennis court. I now merge creativity and logic to build interactive websites while pursuing excellence in tennis.</p>
+  </section>
+
+  <section>
+    <h2>Primary Tennis Strokes</h2>
+    <div class="gallery">
+      <figure><img src="https://i.imgur.com/GPyejt2.png" alt="Forehand"><figcaption>Forehand</figcaption></figure>
+      <figure><img src="https://i.imgur.com/Mrzz0ro.png" alt="Smash"><figcaption>Smash</figcaption></figure>
+      <figure><img src="https://i.imgur.com/3BRqehi.png" alt="Slice"><figcaption>Slice</figcaption></figure>
+      <figure><img src="https://i.imgur.com/sQOY1As.png" alt="Volley"><figcaption>Volley</figcaption></figure>
+      <figure><img src="https://i.imgur.com/gt7wxii.png" alt="Service"><figcaption>Service</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Advanced Strokes & Trick Shots</h2>
+    <div class="gallery">
+      <figure><img src="https://i.imgur.com/aScoAcm.png" alt="Tweeners"><figcaption>Tweeners</figcaption></figure>
+      <figure><img src="https://i.imgur.com/dQkfPbu.png" alt="Smash Volley"><figcaption>Smash Volley</figcaption></figure>
+      <figure><img src="https://i.imgur.com/fCQmCKV.png" alt="Disguised Dropshot"><figcaption>Disguised Dropshot</figcaption></figure>
+      <figure><img src="https://i.imgur.com/rk0jnOc.png" alt="Slice Volley"><figcaption>Slice Volley</figcaption></figure>
+      <figure><img src="https://i.imgur.com/HAtw0xN.png" alt="Backhand Smash"><figcaption>Backhand Smash</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:sulaimanadekanye32@gmail.com">sulaimanadekanye32@gmail.com</a></p>
+    <p>Phone (WhatsApp): <a href="https://wa.me/message/7EKMF5XP56SFJ1" target="_blank">09054546360</a></p>
+    <p>Got a project, question, or match challenge? Let's talk!</p>
+  </section>
+
+  <footer>
+    <div class="social-icons">
+      <a href="https://ng.linkedin.com/in/sulaiman-adekanye-a836a6347" target="_blank"><img src="https://i.imgur.com/s1GXvXw.png" alt="LinkedIn" width="25" height="25"></a>
+      <a href="https://www.facebook.com/sulaiman.adekanye/" target="_blank">📘</a>
+      <a href="https://www.instagram.com/sulaimanadekanye?utm_source=qr&igsh=dnZoNzBwejdqeWxt" target="_blank">📸</a>
+      <a href="https://twitter.com/Namialus201" target="_blank">🐦</a>
+      <a href="https://wa.me/message/7EKMF5XP56SFJ1" target="_blank">💬</a>
+    </div>
+    <p>&copy; 2025 Hidden's Tennis Domain. All Rights Reserved.</p>
+  </footer>
+
+  <div class="tennis-ball"></div>
+
+  <script>
+    const toggle = document.getElementById('darkToggle');
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      toggle.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(section => observer.observe(section));
+
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
+
+
